@@ -16,7 +16,7 @@ JNIEXPORT jint JNICALL Java_term_NativeTermSize_rawTermSize
   (JNIEnv *env, jobject obj) {
     unsigned short cols;
     unsigned short rows;
-    int err;
+    int err = 0;
 
     #ifdef _WIN32
     // https://stackoverflow.com/a/12642749
