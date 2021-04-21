@@ -9,10 +9,10 @@
 
 /*
  * Class:      term_NativeTermSize
- * Method:     rawTermSize
+ * Method:     rawSize
  * Signature:  ()I
  */
-JNIEXPORT jint JNICALL Java_term_NativeTermSize_rawTermSize
+JNIEXPORT jint JNICALL Java_term_NativeTermSize_rawSize
   (JNIEnv *env, jobject obj) {
     unsigned short cols;
     unsigned short rows;

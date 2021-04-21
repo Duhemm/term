@@ -2,8 +2,19 @@ package term
 
 import ch.jodersky.jni.nativeLoader
 
+/**
+ * A provider that gets the current terminal size using a native library.
+ */
+object NativeTermSize extends TermSize {
+  private val provider =
+    try new NativeTermSize
+    catch { case _: UnsatisfiedLinkError => null }
+  override def available(): Boolean = provider != null
+  override def rawSize(): Int       = provider.rawSize()
+
+}
+
 @nativeLoader("term-size")
-class NativeTermSize extends TermSize {
-  override def available(): Boolean = colsAndRows() != (-1, -1)
-  @native def rawTermSize(): Int
+private class NativeTermSize {
+  @native def rawSize(): Int
 }
