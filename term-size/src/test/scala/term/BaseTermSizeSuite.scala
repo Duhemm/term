@@ -7,11 +7,11 @@ import org.scalatest.funsuite.AnyFunSuite
 
 abstract class BaseTermSizeSuite(ts: => TermSize) extends AnyFunSuite {
 
-  val actualColsAndRows: Option[(Int, Int)] =
+  val actualSize: Option[Size] =
     try {
       val stream            = getClass.getClassLoader.getResourceAsStream("size")
       val Array(cols, rows) = Source.fromInputStream(stream).mkString.split(' ')
-      Some((cols.toInt, rows.toInt))
+      Some(Size(cols.toInt, rows.toInt))
     } catch {
       case NonFatal(e) =>
         None
@@ -33,8 +33,8 @@ abstract class BaseTermSizeSuite(ts: => TermSize) extends AnyFunSuite {
 
   def testIfAvailable(
       name: String
-  )(body: ((Int, Int), TermSize) => Unit): Unit = test(name) {
-    actualColsAndRows match {
+  )(body: (Size, TermSize) => Unit): Unit = test(name) {
+    actualSize match {
       case None         => ignored("actual size unknown")
       case Some(actual) => provider.foreach(body(actual, _))
     }

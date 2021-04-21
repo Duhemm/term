@@ -4,7 +4,7 @@ import scala.sys.process.Process
 import scala.sys.process.ProcessLogger
 
 object TputTermSize extends TermSize {
-  override def rawTermSize(): Int = {
+  override def rawSize(): Int = {
     Process(
       "sh" :: "-c" :: """echo "cols\nlines" | tput -S 2>/dev/tty""" :: Nil
     )
